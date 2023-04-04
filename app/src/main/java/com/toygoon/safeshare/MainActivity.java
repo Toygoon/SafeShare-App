@@ -25,7 +25,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.toygoon.safeshare.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
