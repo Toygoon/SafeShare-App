@@ -34,19 +34,7 @@ public class HomeFragment extends Fragment {
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("user_id", "hi");
-        map.put("user_pw", "hi");
 
-        NetworkTask task = new NetworkTask(Constants.API_LOGIN_URL, map, "POST");
-        CompletableFuture<HashMap<String, String>> future = CompletableFuture.supplyAsync(task);
-        HashMap<String, String> result = null;
-
-        try {
-            result = future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         return root;
     }
