@@ -2,6 +2,9 @@ package com.toygoon.safeshare;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.toygoon.safeshare.databinding.ActivityMainBinding;
+import com.toygoon.safeshare.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -33,7 +37,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+        // Logged in check
+        SharedPreferences loggedIn = getSharedPreferences("user", Activity.MODE_PRIVATE);
+        if (loggedIn.getString("userId", "None").equals("None")) {
+            // If not logged in, send intent to LoginActivity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Logged in, just open this activity normally
+            setContentView(binding.getRoot());
+        }
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
