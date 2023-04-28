@@ -1,6 +1,7 @@
 package com.toygoon.safeshare.ui.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.toygoon.safeshare.R;
+import com.toygoon.safeshare.MainActivity;
 import com.toygoon.safeshare.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // To save user information
         SharedPreferences auto = getSharedPreferences("user", Activity.MODE_PRIVATE);
+//        Log.d("LoginActivity", auto.getString("userId", "None"));
 
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
@@ -78,9 +80,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+//        String welcome = getString(R.string.welcome) + model.getName();
+//        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        // Logged in successfully, go to MainActivity
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
