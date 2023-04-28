@@ -16,11 +16,13 @@ package com.toygoon.safeshare.firebase;
  * limitations under the License.
  */
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.Log;
@@ -31,8 +33,14 @@ import androidx.work.WorkManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.toygoon.safeshare.Constants;
 import com.toygoon.safeshare.MainActivity;
 import com.toygoon.safeshare.R;
+import com.toygoon.safeshare.http.NetworkTask;
+
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * NOTE: There can only be one service in each app that receives FCM messages. If multiple
@@ -156,7 +164,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        SharedPreferences auto = getSharedPreferences("user", Activity.MODE_PRIVATE);
+        if (!auto.getString("userId", "None").equals("None")) {
+            // Refresh token process
+            HashMap<String, String> map = new HashMap<>();
+            map.put("user_id", auto.getString("userId", "None"));
+            map.put("token", token);
+
+            NetworkTask task = new NetworkTask(Constants.API_TOKEN_URL, map, "POST");
+            CompletableFuture<HashMap<String, String>> future = CompletableFuture.supplyAsync(task);
+            // End refreshing process
+        }
     }
 
     /**
