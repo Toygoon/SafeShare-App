@@ -1,23 +1,17 @@
 package com.toygoon.safeshare.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.toygoon.safeshare.Constants;
 import com.toygoon.safeshare.databinding.FragmentHomeBinding;
-import com.toygoon.safeshare.http.NetworkTask;
 
-import java.util.HashMap;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import net.daum.mf.map.api.MapView;
 
 public class HomeFragment extends Fragment {
 
@@ -31,10 +25,9 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-
+        MapView mapView = new MapView(this.getContext());
+        binding.mapView.addView(mapView);
 
         return root;
     }
