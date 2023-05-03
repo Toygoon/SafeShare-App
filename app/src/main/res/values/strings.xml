@@ -30,8 +30,10 @@
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_id">ID</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_realname">Real Name</string>
+    <string name="prompt_phone">Phone</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
@@ -41,4 +43,5 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="register_dialog">Not registered ID, do you want to register now?</string>
+    <string name="password_check_failed">Password is incorrect.</string>
 </resources>

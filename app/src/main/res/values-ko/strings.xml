@@ -3,4 +3,5 @@
     <string name="yes">네</string>
     <string name="no">아니오</string>
     <string name="register_dialog">가입되어 있지 않은 회원입니다. 가입하시겠습니까?</string>
+    <string name="password_check_failed">비밀번호가 올바르지 않습니다.</string>
 </resources>

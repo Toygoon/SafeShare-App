@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,9 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.toygoon.safeshare.Constants;
 import com.toygoon.safeshare.MainActivity;
 import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.databinding.ActivityLoginBinding;
+import com.toygoon.safeshare.http.NetworkTask;
+
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
@@ -43,14 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
-        final ProgressBar loadingProgressBar = binding.loading;
+//        final ProgressBar loadingProgressBar = binding.loading;
         this.password2 = binding.password2;
         this.realname = binding.realname;
         this.phone = binding.phone;
-
-        if (this.phone.getVisibility() == View.VISIBLE) {
-
-        }
 
         // To save user information
         SharedPreferences auto = getSharedPreferences("user", Activity.MODE_PRIVATE);
@@ -59,12 +60,50 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
+                if (phone.getVisibility() == View.VISIBLE) {
+                    // Password Check
+                    String pw1 = String.valueOf(passwordEditText.getText()),
+                            pw2 = String.valueOf(password2.getText());
+
+                    if (!pw1.trim().equals(pw2.trim())) {
+                        showPasswordCheckFailed();
+                        return;
+                    }
+
+                    String username = String.valueOf(usernameEditText.getText()),
+                            name = String.valueOf(realname.getText());
+
+                    // Register process
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("user_id", username);
+                    map.put("user_pw", pw1);
+                    map.put("name", name);
+                    map.put("mobile", String.valueOf(phone.getText()));
+
+                    NetworkTask task = new NetworkTask(Constants.API_REGISTER_URL, map, "POST");
+                    CompletableFuture<HashMap<String, String>> future = CompletableFuture.supplyAsync(task);
+                    HashMap<String, String> result = null;
+
+                    try {
+                        result = future.get();
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // End Register process
+
+                    SharedPreferences.Editor editor = auto.edit();
+
+                    editor.putString("userId", username);
+                    editor.putString("name", name);
+                    editor.apply();
+
+                    updateUiWithUser(null);
                     return;
                 }
 
-                loadingProgressBar.setVisibility(View.GONE);
-
+                if (loginResult == null) {
+                    return;
+                }
 
                 if (loginResult.getError() != null) {
 //                    showLoginFailed(loginResult.getError());
@@ -90,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
+//                loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
@@ -110,6 +149,10 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
+    private void showPasswordCheckFailed() {
+        Toast.makeText(getApplicationContext(), R.string.password_check_failed, Toast.LENGTH_SHORT).show();
+    }
+
     private void showRegister() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.register_dialog)
@@ -124,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
 
