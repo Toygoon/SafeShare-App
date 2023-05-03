@@ -37,6 +37,10 @@ public class LoginDataSource {
             Log.d("LoginDataSource", "login succeed");
 
             return new Result.Success<>(new LoggedInUser(result.get("name"), username));
+        } else if (result.getOrDefault("response_code", "-1").equals(Constants.LOGIN_PASSWORD_ERROR_CODE)) {
+            Log.d("LoginDataSource", "password error");
+
+            return new Result.Error(new IOException("password_error", new Throwable("password_error")));
         }
 
         Log.d("LoginDataSource", "Login failed");
