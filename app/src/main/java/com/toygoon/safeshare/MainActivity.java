@@ -60,13 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -120,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));	// 해시키를 로그로 찍어서 확인
+                Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));    // 해시키를 로그로 찍어서 확인
             } catch (NoSuchAlgorithmException e) {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }

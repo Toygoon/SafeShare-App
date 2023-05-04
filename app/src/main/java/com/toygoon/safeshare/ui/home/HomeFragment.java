@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.toygoon.safeshare.databinding.FragmentHomeBinding;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -65,6 +66,14 @@ public class HomeFragment extends Fragment {
         mapView.addPOIItem(marker);
         mapView.setMapCenterPoint(userMapPoint, true);
         binding.mapView.addView(mapView);
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         return root;
     }
