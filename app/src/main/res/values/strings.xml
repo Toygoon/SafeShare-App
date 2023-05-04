@@ -44,4 +44,5 @@
     <string name="no">NO</string>
     <string name="register_dialog">Not registered ID, do you want to register now?</string>
     <string name="password_check_failed">Password is incorrect.</string>
+    <string name="move_to_current_location">Moving to current location.</string>
 </resources>
