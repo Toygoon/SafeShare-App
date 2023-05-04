@@ -44,6 +44,14 @@ public class HomeFragment extends Fragment {
 
         moveToCurrentLocation();
 
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
         return root;
     }
 
@@ -76,14 +84,6 @@ public class HomeFragment extends Fragment {
 
         mapView.addPOIItem(marker);
         mapView.setMapCenterPoint(userMapPoint, true);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
