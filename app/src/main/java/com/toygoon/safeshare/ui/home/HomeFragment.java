@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.databinding.FragmentHomeBinding;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -68,14 +69,13 @@ public class HomeFragment extends Fragment {
         MapPoint userMapPoint = MapPoint.mapPointWithGeoCoord(userLocation.getLatitude(), userLocation.getLongitude());
 
         MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("위치");
+        marker.setItemName(getString(R.string.location));
         marker.setMapPoint(userMapPoint);
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
         mapView.addPOIItem(marker);
         mapView.setMapCenterPoint(userMapPoint, true);
-
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
