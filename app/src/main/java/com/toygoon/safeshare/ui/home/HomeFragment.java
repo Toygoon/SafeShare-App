@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
+        markers = new HashMap<>();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -47,8 +48,9 @@ public class HomeFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                moveToCurrentLocation();
             }
         });
 
@@ -82,8 +84,15 @@ public class HomeFragment extends Fragment {
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
+        if (markers.getOrDefault("current", null) != null) {
+            mapView.removePOIItem(markers.get("current"));
+            markers.remove("current");
+        }
+
+        markers.put("current", marker);
         mapView.addPOIItem(marker);
         mapView.setMapCenterPoint(userMapPoint, true);
+        mapView.setZoomLevel(1, true);
     }
 
     @Override
