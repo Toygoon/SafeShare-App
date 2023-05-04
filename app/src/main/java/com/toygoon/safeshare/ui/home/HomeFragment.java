@@ -23,9 +23,12 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-public class HomeFragment extends Fragment {
+import java.util.HashMap;
 
+public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
+    private HashMap<String, MapPOIItem> markers;
+    private MapView mapView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,8 +38,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        MapView mapView = new MapView(this.getContext());
+        mapView = new MapView(this.getContext());
+        binding.mapView.addView(mapView);
 
+        moveToCurrentLocation();
+
+        return root;
+    }
+
+    private void moveToCurrentLocation() {
         // Move to current location
         LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
@@ -65,7 +75,7 @@ public class HomeFragment extends Fragment {
 
         mapView.addPOIItem(marker);
         mapView.setMapCenterPoint(userMapPoint, true);
-        binding.mapView.addView(mapView);
+
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +84,6 @@ public class HomeFragment extends Fragment {
                         .setAction("Action", null).show();
             }
         });
-
-        return root;
     }
 
     @Override
