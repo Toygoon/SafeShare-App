@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
+
         this.getHashKey();
 
         // Logged in check
@@ -68,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        // Make user image circle
+        final ImageView navPic = navigationView.getHeaderView(0).findViewById(R.id.nav_pic);
+        navPic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        // Change user name and phone in navigation bar
+        final TextView navId = navigationView.getHeaderView(0).findViewById(R.id.nav_id);
+        final TextView navName = navigationView.getHeaderView(0).findViewById(R.id.nav_name);
+
+        navId.setText(loggedIn.getString("userId", "None"));
+        navName.setText(loggedIn.getString("name", "None"));
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
