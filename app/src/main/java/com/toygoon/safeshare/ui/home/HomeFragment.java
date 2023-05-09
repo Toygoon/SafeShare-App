@@ -3,6 +3,7 @@ package com.toygoon.safeshare.ui.home;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -49,7 +50,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, getString(R.string.move_to_current_location), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        .setAction("Action", null)
+                        .setBackgroundTint(Color.WHITE)
+                        .setTextColor(Color.BLACK)
+                        .show();
                 moveToCurrentLocation();
             }
         });

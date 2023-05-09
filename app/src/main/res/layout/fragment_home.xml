@@ -19,7 +19,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#757575"
+            android:backgroundTint="@color/white"
+            app:backgroundTint="@color/white"
+            app:tint="@null"
             app:srcCompat="@drawable/ic_button_pin" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
