@@ -27,10 +27,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.toygoon.safeshare.databinding.ActivityMainBinding;
+import com.toygoon.safeshare.http.NetworkTask;
 import com.toygoon.safeshare.ui.login.LoginActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -85,9 +89,27 @@ public class MainActivity extends AppCompatActivity {
                         String token = task.getResult();
 
                         // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d(TAG, msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, token);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                        // Refreshing token process
+                        HashMap<String, String> tokenMap = new HashMap<>();
+
+                        tokenMap.put("user_id", loggedIn.getString("userId", "None"));
+                        tokenMap.put("token", token);
+
+                        NetworkTask tokenTask = new NetworkTask(Constants.API_TOKEN_URL, tokenMap, "POST");
+                        CompletableFuture<HashMap<String, String>> future = CompletableFuture.supplyAsync(tokenTask);
+                        HashMap<String, String> result = null;
+
+                        try {
+                            result = future.get();
+                        } catch (ExecutionException | InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Log.d("FirebaseMessaging", "Updating token completed");
+                        // End Refreshing token process
                     }
                 });
     }

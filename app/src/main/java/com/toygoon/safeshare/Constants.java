@@ -6,5 +6,5 @@ public class Constants {
     public static final String API_REGISTER_URL = API_URL + "register/";
     public static final String LOGIN_SUCCEED_CODE = "200";
     public static final String LOGIN_PASSWORD_ERROR_CODE = "400";
-    public static final String API_TOKEN_URL = API_URL + "app_token/";
+    public static final String API_TOKEN_URL = API_URL + "token/";
 }
