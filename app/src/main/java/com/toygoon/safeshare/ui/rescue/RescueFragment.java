@@ -1,4 +1,4 @@
-package com.toygoon.safeshare.ui.slideshow;
+package com.toygoon.safeshare.ui.rescue;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.toygoon.safeshare.databinding.FragmentSlideshowBinding;
+import com.toygoon.safeshare.databinding.FragmentRescueBinding;
 
-public class SlideshowFragment extends Fragment {
+public class RescueFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentRescueBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        RescueViewModel rescueViewModel =
+                new ViewModelProvider(this).get(RescueViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentRescueBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        rescueViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
