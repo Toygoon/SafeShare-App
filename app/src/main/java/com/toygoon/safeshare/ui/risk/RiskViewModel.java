@@ -1,16 +1,16 @@
-package com.toygoon.safeshare.ui.gallery;
+package com.toygoon.safeshare.ui.risk;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class RiskViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public RiskViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is risk fragment");
     }
 
     public LiveData<String> getText() {

@@ -6,4 +6,6 @@
     <string name="password_check_failed">비밀번호가 올바르지 않습니다.</string>
     <string name="location">위치</string>
     <string name="move_to_current_location">현재 위치로 이동합니다.</string>
+    <string name="menu_home">지도</string>
+    <string name="menu_report">구조 요청</string>
 </resources>

@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.toygoon.safeshare.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_report"
+        android:name="com.toygoon.safeshare.ui.risk.RiskFragment"
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_risk" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_rescue"
         android:name="com.toygoon.safeshare.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_rescue"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
