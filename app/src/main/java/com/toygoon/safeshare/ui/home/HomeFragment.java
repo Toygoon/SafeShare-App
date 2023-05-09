@@ -49,11 +49,13 @@ public class HomeFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Snackbar.make(view, getString(R.string.move_to_current_location), Snackbar.LENGTH_LONG)
                         .setAction("Action", null)
                         .setBackgroundTint(Color.WHITE)
                         .setTextColor(Color.BLACK)
                         .show();
+                 */
                 moveToCurrentLocation();
             }
         });
