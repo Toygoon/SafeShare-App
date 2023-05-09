@@ -8,4 +8,5 @@
     <string name="move_to_current_location">현재 위치로 이동합니다.</string>
     <string name="menu_home">지도</string>
     <string name="menu_report">구조 요청</string>
+    <string name="menu_rescue">재난 관리</string>
 </resources>

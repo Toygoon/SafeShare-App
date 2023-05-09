@@ -9,7 +9,7 @@
 
     <string name="menu_home">Maps</string>
     <string name="menu_report">Request Rescue</string>
-    <string name="menu_rescue">Slideshow</string>
+    <string name="menu_rescue">Manage Risks</string>
 
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
         weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
