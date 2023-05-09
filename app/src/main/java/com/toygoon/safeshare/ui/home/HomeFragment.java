@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.databinding.FragmentHomeBinding;
@@ -46,7 +47,12 @@ public class HomeFragment extends Fragment {
 
         moveToCurrentLocation();
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        final String RIPPLE_COLOR = "#757575";
+        final FloatingActionButton buttonPin = binding.buttonPin, buttonSos = binding.buttonSos;
+        buttonPin.setRippleColor(Color.parseColor(RIPPLE_COLOR));
+        buttonSos.setRippleColor(Color.parseColor(RIPPLE_COLOR));
+
+        buttonPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*
