@@ -47,10 +47,10 @@ public class HomeFragment extends Fragment {
 
         moveToCurrentLocation();
 
-        final String RIPPLE_COLOR = "#757575";
+        final int RIPPLE_COLOR = requireActivity().getColor(R.color.green_700);
         final FloatingActionButton buttonPin = binding.buttonPin, buttonSos = binding.buttonSos;
-        buttonPin.setRippleColor(Color.parseColor(RIPPLE_COLOR));
-        buttonSos.setRippleColor(Color.parseColor(RIPPLE_COLOR));
+        buttonPin.setRippleColor(RIPPLE_COLOR);
+        buttonSos.setRippleColor(RIPPLE_COLOR);
 
         buttonPin.setOnClickListener(new View.OnClickListener() {
             @Override
