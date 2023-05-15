@@ -1,5 +1,5 @@
 <resources>
-    <string name="action_sign_in">로그인 혹은 가입</string>
+    <string name="action_sign_in">로그인</string>
     <string name="yes">네</string>
     <string name="no">아니오</string>
     <string name="register_dialog">가입되어 있지 않은 회원입니다. 가입하시겠습니까?</string>
@@ -9,4 +9,10 @@
     <string name="menu_home">지도</string>
     <string name="menu_report">구조 요청</string>
     <string name="menu_rescue">재난 관리</string>
+    <string name="prompt_id">아이디</string>
+    <string name="prompt_password">비밀번호</string>
+    <string name="prompt_password2">비밀번호 확인</string>
+    <string name="prompt_realname">실명</string>
+    <string name="prompt_phone">전화번호</string>
+    <string name="action_register">회원가입</string>
 </resources>
