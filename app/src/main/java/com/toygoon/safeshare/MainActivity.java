@@ -8,11 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        navigationView.getBackground().setAlpha(240);
 
         // Make user image circle
         final ImageView navPic = navigationView.getHeaderView(0).findViewById(R.id.nav_pic);
