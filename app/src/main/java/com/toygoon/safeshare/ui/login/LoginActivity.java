@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -159,9 +161,23 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // Make input visible
                         binding.password2.setVisibility(View.VISIBLE);
                         binding.realname.setVisibility(View.VISIBLE);
                         binding.phone.setVisibility(View.VISIBLE);
+
+                        // Change header text
+                        binding.headerText.setText(getString(R.string.action_register));
+                        binding.login.setText(getString(R.string.action_register));
+
+                        // Move some components aligned
+                        final ConstraintLayout container = binding.container;
+                        ConstraintSet set = new ConstraintSet();
+                        set.clone(container);
+                        set.setMargin(R.id.header_text, ConstraintSet.TOP, 200);
+                        set.connect(R.id.username, ConstraintSet.TOP, R.id.header_text, ConstraintSet.BOTTOM, 100);
+                        set.connect(R.id.login, ConstraintSet.TOP, R.id.phone, ConstraintSet.BOTTOM, 100);
+                        set.applyTo(container);
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
