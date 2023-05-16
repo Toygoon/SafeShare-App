@@ -18,10 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.databinding.FragmentHomeBinding;
 
+import net.daum.mf.map.api.MapCircle;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -31,6 +31,7 @@ import java.util.HashMap;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private HashMap<String, MapPOIItem> markers;
+    private HashMap<String, MapCircle> circles;
     private MapView mapView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         markers = new HashMap<>();
+        circles = new HashMap<>();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -97,13 +99,25 @@ public class HomeFragment extends Fragment {
         marker.setCustomImageResourceId(R.drawable.ic_map_marker);
         marker.setCustomImageAutoscale(false);
 
+        final int circleColor = Color.argb(100, 0x0D, 0x78, 0x0D);
+        MapCircle circle = new MapCircle(userMapPoint, 100, circleColor, circleColor);
+        circle.setTag(0);
+
         if (markers.getOrDefault("current", null) != null) {
             mapView.removePOIItem(markers.get("current"));
             markers.remove("current");
         }
 
+        if (circles.getOrDefault("current", null) != null) {
+            mapView.removeCircle(circles.get("current"));
+            circles.remove("current");
+        }
+
         markers.put("current", marker);
+        circles.put("current", circle);
+
         mapView.addPOIItem(marker);
+        mapView.addCircle(circle);
         mapView.setMapCenterPoint(userMapPoint, true);
         mapView.setZoomLevel(1, true);
     }
