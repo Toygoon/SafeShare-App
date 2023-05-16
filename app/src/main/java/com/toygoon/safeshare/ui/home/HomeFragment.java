@@ -93,8 +93,9 @@ public class HomeFragment extends Fragment {
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName(getString(R.string.location));
         marker.setMapPoint(userMapPoint);
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+        marker.setCustomImageResourceId(R.drawable.ic_map_marker);
+        marker.setCustomImageAutoscale(false);
 
         if (markers.getOrDefault("current", null) != null) {
             mapView.removePOIItem(markers.get("current"));
