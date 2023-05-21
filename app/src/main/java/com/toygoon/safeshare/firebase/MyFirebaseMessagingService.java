@@ -23,6 +23,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.Log;
@@ -39,18 +40,18 @@ import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.http.NetworkTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * NOTE: There can only be one service in each app that receives FCM messages. If multiple
  * are declared in the Manifest then the first one will be chosen.
- *
+ * <p>
  * In order to make this Java sample functional, you must remove the following from the Kotlin messaging
  * service in the AndroidManifest.xml:
- *
+ * <p>
  * <intent-filter>
- *   <action android:name="com.google.firebase.MESSAGING_EVENT" />
+ * <action android:name="com.google.firebase.MESSAGING_EVENT" />
  * </intent-filter>
  */
 
@@ -104,12 +105,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            String notificationBody = remoteMessage.getNotification().getBody();
             if (remoteMessage.getNotification().getBody() != null) {
-                sendNotification(notificationBody);
+                sendNotification(remoteMessage);
             }
         }
-
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
@@ -117,6 +116,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     // [START on_new_token]
+
     /**
      * There are two scenarios when onNewToken is called:
      * 1) When a new token is generated on initial app startup
@@ -157,7 +157,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM registration token with any
      * server-side account maintained by your application.
      *
@@ -180,9 +180,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /**
      * Create and show a simple notification containing the received FCM message.
      *
-     * @param messageBody FCM message body received.
+     * @param remoteMessage Received FCM object.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(RemoteMessage remoteMessage) {
+        final String messageTitle = Objects.requireNonNull(remoteMessage.getNotification()).getTitle(),
+                messageBody = remoteMessage.getNotification().getBody();
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -192,8 +195,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                        .setContentTitle(getString(R.string.fcm_message))
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                                R.mipmap.ic_launcher))
+                        .setContentTitle(messageTitle)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
@@ -204,7 +209,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Since android Oreo notification channel is needed.
         NotificationChannel channel = new NotificationChannel(channelId,
-                "Channel human readable title",
+                getString(R.string.menu_report),
                 NotificationManager.IMPORTANCE_DEFAULT);
         notificationManager.createNotificationChannel(channel);
 
