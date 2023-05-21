@@ -18,7 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -43,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-
-
         this.getHashKey();
 
         // Logged in check
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else {
             // Logged in, just open this activity normally
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
         }
 
@@ -89,7 +89,17 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_report, R.id.nav_rescue)
                 .setOpenableLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_main);
+
+        NavInflater inflater = navHostFragment.getNavController().getNavInflater();
+        NavGraph graph = inflater.inflate(R.navigation.mobile_navigation);
+        // Assign new Fragment
+        graph.setStartDestination(R.id.nav_home);
+        navHostFragment.getNavController().setGraph(graph);
+
+        NavigationUI.setupWithNavController(navigationView, navHostFragment.getNavController());
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
