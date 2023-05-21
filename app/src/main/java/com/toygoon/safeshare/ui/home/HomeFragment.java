@@ -27,6 +27,7 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment {
         LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         // Request location permission start
-        if (ContextCompat.checkSelfPermission(getContext(),
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -88,6 +89,12 @@ public class HomeFragment extends Fragment {
             }
         }
         // Request location permission end
+
+        // Request notification permission start
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {  //권한 허용상태인지 체크
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+        }
+        // Request notification permission end
 
         Location userLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         MapPoint userMapPoint = MapPoint.mapPointWithGeoCoord(userLocation.getLatitude(), userLocation.getLongitude());
@@ -127,5 +134,4 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
