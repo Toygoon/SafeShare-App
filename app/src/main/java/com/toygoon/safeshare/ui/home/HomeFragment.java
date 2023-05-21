@@ -132,6 +132,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding.mapView.removeAllViews();
         binding = null;
     }
 }

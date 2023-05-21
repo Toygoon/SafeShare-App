@@ -95,8 +95,35 @@ public class MainActivity extends AppCompatActivity {
 
         NavInflater inflater = navHostFragment.getNavController().getNavInflater();
         NavGraph graph = inflater.inflate(R.navigation.mobile_navigation);
+        int fragmentId = R.id.nav_home;
+
+        Log.d("intent", String.valueOf(getIntent().getExtras()));
+
         // Assign new Fragment
-        graph.setStartDestination(R.id.nav_home);
+        if (getIntent().getExtras() != null) {
+            /*
+            Log.d("intent", getIntent().getExtras().getString("fragment"));
+            if (getIntent().getExtras().containsKey("fragment")) {
+                String fragment = getIntent().getExtras().getString("fragment");
+
+                if (fragment.equals("home")) {
+                    fragmentId = R.id.nav_home;
+                } else if (fragment.equals("risk")) {
+                    fragmentId = R.id.nav_report;
+                } else if (fragment.equals("rescue")) {
+                    fragmentId = R.id.nav_rescue;
+                }
+
+                Log.d("fragment", String.valueOf(fragmentId));
+            }
+
+            */
+            Log.d("intentContent", String.valueOf(getIntent().getExtras().getBoolean("notification")));
+
+            fragmentId = R.id.nav_rescue;
+        }
+
+        graph.setStartDestination(fragmentId);
         navHostFragment.getNavController().setGraph(graph);
 
         NavigationUI.setupWithNavController(navigationView, navHostFragment.getNavController());
