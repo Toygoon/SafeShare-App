@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getHashKey();
 
+        // Logged in, just open this activity normally
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         // Logged in check
         SharedPreferences loggedIn = getSharedPreferences("user", Activity.MODE_PRIVATE);
         if (loggedIn.getString("userId", "None").equals("None")) {
@@ -56,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            // Logged in, just open this activity normally
-            binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
         }
 
