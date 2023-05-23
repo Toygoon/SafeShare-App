@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Maps</string>
-    <string name="menu_report">Request Rescue</string>
+    <string name="menu_report">Risk Report</string>
     <string name="menu_rescue">Manage Risks</string>
 
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
@@ -47,4 +47,13 @@
     <string name="register_dialog">Not registered ID, do you want to register now?</string>
     <string name="password_check_failed">Password is incorrect.</string>
     <string name="move_to_current_location">Moving to current location.</string>
+    <string name="etc">etc…</string>
+    <string name="risk_label_type">Type</string>
+    <string name="risk_label_title">Title</string>
+    <string name="risk_label_content">Content</string>
+    <string name="risk_label_photo">Photo</string>
+    <string name="risk_label_title_hint">Input Title…</string>
+    <string name="risk_label_content_hint">Input Content…</string>
+    <string name="risk_label_photo_hint">Choose Photo…</string>
+    <string name="risk_label_submit">Risk Report Submit</string>
 </resources>
