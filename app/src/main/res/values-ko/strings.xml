@@ -24,4 +24,6 @@
     <string name="risk_label_content_hint">내용 입력…</string>
     <string name="risk_label_photo_hint">사진 첨부…</string>
     <string name="risk_label_submit">구조 요청 전송</string>
+    <string name="risk_title_sample">%s이(가) 발생했습니다.</string>
+    <string name="risk_content_sample">%s에서 %s이(가) 발생했습니다. 도움을 요청합니다.</string>
 </resources>

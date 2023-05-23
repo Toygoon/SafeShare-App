@@ -56,4 +56,6 @@
     <string name="risk_label_content_hint">Input Content…</string>
     <string name="risk_label_photo_hint">Choose Photo…</string>
     <string name="risk_label_submit">Risk Report Submit</string>
+    <string name="risk_title_sample">%s occurrence</string>
+    <string name="risk_content_sample">%s has occurred near location %s. Assistance is requested.</string>
 </resources>
