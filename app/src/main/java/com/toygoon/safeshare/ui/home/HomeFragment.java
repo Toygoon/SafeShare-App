@@ -1,7 +1,9 @@
 package com.toygoon.safeshare.ui.home;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -41,6 +43,10 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         markers = new HashMap<>();
         circles = new HashMap<>();
+
+        if (requireActivity().getIntent().getExtras() != null) {
+            // Notification case
+        }
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -106,7 +112,14 @@ public class HomeFragment extends Fragment {
         marker.setCustomImageResourceId(R.drawable.ic_map_marker);
         marker.setCustomImageAutoscale(false);
 
-        final int circleColor = Color.argb(100, 0x0D, 0x78, 0x0D);
+        int circleColor = Color.argb(100, 0x0D, 0x78, 0x0D);
+
+        SharedPreferences sosStatus = requireActivity().getSharedPreferences("sos", Activity.MODE_PRIVATE);
+
+        if (sosStatus.getBoolean("sos", false)) {
+            circleColor = Color.argb(100, 0xEC, 0x40, 0x7A);
+        }
+
         MapCircle circle = new MapCircle(userMapPoint, 100, circleColor, circleColor);
         circle.setTag(0);
 

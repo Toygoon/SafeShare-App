@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             */
             Log.d("intentContent", String.valueOf(getIntent().getExtras().getBoolean("notification")));
 
-            fragmentId = R.id.nav_rescue;
         }
 
         graph.setStartDestination(fragmentId);
