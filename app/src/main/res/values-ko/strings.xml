@@ -24,6 +24,7 @@
     <string name="risk_label_content_hint">내용 입력…</string>
     <string name="risk_label_photo_hint">사진 첨부…</string>
     <string name="risk_label_submit">구조 요청 전송</string>
-    <string name="risk_title_sample">%s이(가) 발생했습니다.</string>
-    <string name="risk_content_sample">%s에서 %s이(가) 발생했습니다. 도움을 요청합니다.</string>
+    <string name="risk_title_sample">%s 구조 요청</string>
+    <string name="risk_content_sample">현재 위치에서 %s, 도움을 요청합니다.</string>
+    <string name="risk_confirm">구조 요청이 전송될 시, 긴급 요원과 인근 사용자에게 위치 정보 및 사고 정보를 제공할 수 있습니다.  이는 취소할 수 없으며, 허위 신고로 인한 법적 책임을 질 수 있습니다.\n\n정말 현재 위치에서 구조 요청을 하시겠습니까?</string>
 </resources>
