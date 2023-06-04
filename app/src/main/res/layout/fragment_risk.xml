@@ -107,6 +107,7 @@
         android:hint="@string/risk_label_content_hint"
         android:inputType="text|textMultiLine"
         android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:paddingTop="18dp"
         android:selectAllOnFocus="true"
         android:textColor="@color/black"
@@ -146,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/risk_factor_content" />
 
     <Button
-        android:id="@+id/submit_risk"
+        android:id="@+id/risk_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
