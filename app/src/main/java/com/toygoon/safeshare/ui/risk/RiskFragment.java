@@ -1,12 +1,15 @@
 package com.toygoon.safeshare.ui.risk;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.toygoon.safeshare.Constants;
 import com.toygoon.safeshare.R;
@@ -28,16 +33,14 @@ import com.toygoon.safeshare.databinding.FragmentRiskBinding;
 import com.toygoon.safeshare.http.NetworkTask;
 
 import net.daum.mf.map.api.MapPoint;
-import net.daum.mf.map.api.MapReverseGeoCoder;
 
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 
-public class RiskFragment extends Fragment implements MapReverseGeoCoder.ReverseGeoCodingResultListener {
+public class RiskFragment extends Fragment {
     private FragmentRiskBinding binding;
-    private String userAddress;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +52,8 @@ public class RiskFragment extends Fragment implements MapReverseGeoCoder.Reverse
 
         final Spinner riskSpinner = binding.riskFactorSpinner;
         final EditText riskTitle = binding.riskFactorTitle, riskContent = binding.riskFactorContent;
-        final Button riskPhoto = binding.riskFactorPhoto;
+        final Button riskPhoto = binding.riskFactorPhoto, riskSubmit = binding.riskSubmit;
+
         final String etc = getString(R.string.etc);
 
         // Get pre-defined RiskFactors if available Start
@@ -95,29 +99,54 @@ public class RiskFragment extends Fragment implements MapReverseGeoCoder.Reverse
 
         Location userLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         MapPoint userMapPoint = MapPoint.mapPointWithGeoCoord(userLocation.getLatitude(), userLocation.getLongitude());
-        MapReverseGeoCoder mapReverseGeoCoder = new MapReverseGeoCoder(getString(R.string.kakao_api), userMapPoint, this, requireActivity());
 
+        // Set Sample text
         riskSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                while (true) {
-                    mapReverseGeoCoder.startFindingAddress();
-                    break;
-                }
-
                 if (riskSpinner.getSelectedItem().equals(getString(R.string.etc))) {
                     riskTitle.setText("");
                     riskContent.setText("");
                 } else {
                     String current = riskSpinner.getSelectedItem().toString();
                     riskTitle.setText(String.format(getString(R.string.risk_title_sample), current));
-
+                    riskContent.setText(String.format(getString(R.string.risk_content_sample), current));
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
+        // Report risk
+        riskSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Confirm dialog
+                new AlertDialog.Builder(requireActivity())
+                        .setTitle(getString(R.string.risk_label_submit))
+                        .setMessage(getString(R.string.risk_confirm))
+                        .setIcon(R.drawable.ic_menu_risk)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Set sos status
+                                SharedPreferences sosStatus = requireActivity().getSharedPreferences("sos", Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sosStatus.edit();
+
+                                editor.putBoolean("sos", true);
+                                editor.apply();
+
+                                // Change current fragment to main
+                                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+                                navController.navigate(R.id.nav_home);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -128,15 +157,5 @@ public class RiskFragment extends Fragment implements MapReverseGeoCoder.Reverse
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onReverseGeoCoderFoundAddress(MapReverseGeoCoder mapReverseGeoCoder, String s) {
-        this.userAddress = s;
-    }
-
-    @Override
-    public void onReverseGeoCoderFailedToFindAddress(MapReverseGeoCoder mapReverseGeoCoder) {
-        this.userAddress = "-1";
     }
 }
