@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password2;
     private EditText realname;
     private EditText phone;
+    private EditText passwordEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
+        passwordEditText = binding.password;
         final Button loginButton = binding.login;
 //        final ProgressBar loadingProgressBar = binding.loading;
         this.password2 = binding.password2;
@@ -96,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = auto.edit();
 
                     editor.putString("userId", username);
+                    editor.putString("userPw", pw1);
                     editor.putString("name", name);
                     editor.apply();
 
@@ -120,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     editor.putString("userId", loginResult.getSuccess().getUserId());
                     editor.putString("name", loginResult.getSuccess().getName());
+                    editor.putString("userPw", String.valueOf(passwordEditText.getText()));
                     editor.apply();
 
                     //Complete and destroy login activity once successful
