@@ -62,10 +62,25 @@ public class RiskReportAdapter extends ArrayAdapter<RiskReportDTO> {
 
         Date adjustedDate = new Date(item.reportedAt.getTime() - offsetMinutes * 60 * 1000);
         String reportedAtString = resultDateFormat.format(adjustedDate),
-                isSolvedString = item.isSolved ? context.getString(R.string.risk_label_solved) : context.getString(R.string.risk_label_unsolved),
-                latLngString = "(" + item.latlng.lat + ", " + item.latlng.lng + ")",
-                riskFactorString = context.getString(R.string.risk_label_type) +" : " + item.riskFactor.name + ", Level: " + item.riskFactor.riskLevel
-                        + ", Impact: " + item.riskFactor.riskImpact;
+                isSolvedString = context.getString(R.string.risk_label_is_solved) + " : " +
+                        (item.isSolved ? context.getString(R.string.risk_label_solved) : context.getString(R.string.risk_label_unsolved)),
+                latLngString = context.getString(R.string.location) + " : (" + item.latlng.lat + ", " + item.latlng.lng + ")";
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(context.getString(R.string.risk_label_type));
+        sb.append(" : ");
+        sb.append(item.riskFactor.name);
+        sb.append("\n");
+        sb.append(context.getString(R.string.risk_label_level));
+        sb.append(" : ");
+        sb.append(item.riskFactor.riskLevel);
+        sb.append("\n");
+        sb.append(context.getString(R.string.risk_label_impact));
+        sb.append(" : ");
+        sb.append(item.riskFactor.riskImpact);
+
+        String riskFactorString = sb.toString(),
+                userString = context.getString(R.string.risk_label_user) + " : " + item.user;
 
         viewHolder.textTitle.setText(context.getString(R.string.risk_label_title) + " : " + item.title);
         viewHolder.textSummary.setText(context.getString(R.string.risk_label_content) + " : " + item.summary);
@@ -75,7 +90,7 @@ public class RiskReportAdapter extends ArrayAdapter<RiskReportDTO> {
 
         viewHolder.textLatLng.setText(latLngString);
         viewHolder.textRiskFactor.setText(riskFactorString);
-        viewHolder.textUser.setText(item.user);
+        viewHolder.textUser.setText(userString);
 
         return view;
     }

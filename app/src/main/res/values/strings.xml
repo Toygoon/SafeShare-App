@@ -65,4 +65,7 @@
     <string name="risk_label_unsolved">Unsolved</string>
     <string name="risk_label_location">Location</string>
     <string name="risk_report_title">Risk Reports</string>
+    <string name="risk_label_level">Risk Level</string>
+    <string name="risk_label_impact">Risk Impact</string>
+    <string name="risk_label_user">User</string>
 </resources>

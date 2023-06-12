@@ -33,4 +33,7 @@
     <string name="risk_label_unsolved">해결되지 않음</string>
     <string name="risk_label_location">위치</string>
     <string name="risk_report_title">재난 목록</string>
+    <string name="risk_label_level">위험 수준</string>
+    <string name="risk_label_impact">위험 척도</string>
+    <string name="risk_label_user">사용자</string>
 </resources>
