@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.toygoon.safeshare.Constants;
+import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.data.RiskReportDTO;
 import com.toygoon.safeshare.databinding.FragmentRescueBinding;
 import com.toygoon.safeshare.http.NetworkTask;
@@ -29,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 public class RescueFragment extends Fragment {
 
     private FragmentRescueBinding binding;
-    private ListView rescueList;
+    private ListView riskListView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,22 +57,22 @@ public class RescueFragment extends Fragment {
         }
         // End Fetching process
 
-        ArrayList<RiskReportDTO> riskReport = new ArrayList<>();
+        ArrayList<RiskReportDTO> riskReportList = new ArrayList<>();
 
         try {
             JSONArray logArray = new JSONArray(result.get("result"));
 
             for(int i=0; i<logArray.length(); i++) {
                 JSONObject json = logArray.getJSONObject(i);
-                riskReport.add(new RiskReportDTO(json));
+                riskReportList.add(new RiskReportDTO(json));
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
 
-//        rescueList = binding.rescueList;
-//        ArrayAdapter<RiskReportDTO> adapter = new ArrayAdapter<>(requireActivity(), R.layout.rescue_adapter, riskReport);
-//        rescueList.setAdapter(adapter);
+        RiskReportAdapter adapter = new RiskReportAdapter(requireActivity(), R.layout.risk_report_item, riskReportList);
+        riskListView = binding.riskList;
+        riskListView.setAdapter(adapter);
 
         return root;
     }

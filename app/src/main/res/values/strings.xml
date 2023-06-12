@@ -59,4 +59,9 @@
     <string name="risk_title_sample">%s occurrence</string>
     <string name="risk_content_sample">%s has occurred near location. Assistance is requested.</string>
     <string name="risk_confirm">When a rescue request is sent, location information and incident details can be provided to emergency responders and nearby users. This action is irreversible, and false reporting may result in legal consequences.\n\nAre you sure you want to make a rescue request from your current location?</string>
+    <string name="risk_label_time">Reported At</string>
+    <string name="risk_label_is_solved">Is solved</string>
+    <string name="risk_label_solved">Solved</string>
+    <string name="risk_label_unsolved">Unsolved</string>
+    <string name="risk_label_location">Location</string>
 </resources>
