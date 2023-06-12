@@ -24,42 +24,49 @@
                 android:id="@+id/textTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textReportedAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textIsSolved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textLatLng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textRiskFactor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

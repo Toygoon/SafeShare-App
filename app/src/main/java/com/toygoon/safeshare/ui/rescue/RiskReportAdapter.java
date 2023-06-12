@@ -2,6 +2,7 @@ package com.toygoon.safeshare.ui.rescue;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import com.toygoon.safeshare.R;
 import com.toygoon.safeshare.data.RiskReportDTO;
@@ -91,6 +93,13 @@ public class RiskReportAdapter extends ArrayAdapter<RiskReportDTO> {
         viewHolder.textLatLng.setText(latLngString);
         viewHolder.textRiskFactor.setText(riskFactorString);
         viewHolder.textUser.setText(userString);
+
+        CardView cardView = (CardView) view.findViewById(R.id.card_view);
+
+        if (item.isSolved)
+            cardView.setCardBackgroundColor(context.getColor(R.color.green_200));
+        else
+            cardView.setCardBackgroundColor(Color.parseColor("#f48fb1"));
 
         return view;
     }
