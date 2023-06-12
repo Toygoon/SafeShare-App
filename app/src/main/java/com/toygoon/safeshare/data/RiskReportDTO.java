@@ -61,7 +61,12 @@ public class RiskReportDTO {
         try {
             reportedAtDate = sdf.parse(reportedAt);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
+            try {
+                reportedAtDate = sdf.parse(reportedAt);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         this.title = title;
