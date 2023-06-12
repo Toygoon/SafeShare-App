@@ -32,4 +32,5 @@
     <string name="risk_label_solved">해결됨</string>
     <string name="risk_label_unsolved">해결되지 않음</string>
     <string name="risk_label_location">위치</string>
+    <string name="risk_report_title">재난 목록</string>
 </resources>

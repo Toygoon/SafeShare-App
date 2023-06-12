@@ -62,7 +62,7 @@ public class RescueFragment extends Fragment {
         try {
             JSONArray logArray = new JSONArray(result.get("result"));
 
-            for(int i=0; i<logArray.length(); i++) {
+            for (int i = 0; i < logArray.length(); i++) {
                 JSONObject json = logArray.getJSONObject(i);
                 riskReportList.add(new RiskReportDTO(json));
             }
