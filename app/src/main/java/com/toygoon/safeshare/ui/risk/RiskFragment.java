@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import net.daum.mf.map.api.MapPoint;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 public class RiskFragment extends Fragment {
@@ -136,6 +138,29 @@ public class RiskFragment extends Fragment {
 
                                 editor.putBoolean("sos", true);
                                 editor.apply();
+
+                                // Sending risk report process
+                                SharedPreferences loggedIn = requireActivity().getSharedPreferences("user", Activity.MODE_PRIVATE);
+                                HashMap<String, String> map = new HashMap<>();
+
+                                map.put("user", loggedIn.getString("userId", "None"));
+                                map.put("title", String.valueOf(riskTitle.getText()));
+                                map.put("summary", String.valueOf(riskContent.getText()));
+                                map.put("risk_factor", String.valueOf(riskSpinner.getSelectedItem()));
+                                map.put("lat", String.valueOf(userLocation.getLatitude()));
+                                map.put("lng", String.valueOf(userLocation.getLongitude()));
+
+                                NetworkTask tokenTask = new NetworkTask(Constants.API_RISK_REPORT_URL, map, "POST");
+                                CompletableFuture<HashMap<String, String>> future = CompletableFuture.supplyAsync(tokenTask);
+                                HashMap<String, String> result = null;
+
+                                try {
+                                    result = future.get();
+                                } catch (ExecutionException | InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Log.d("RiskFragment", "Risk reported");
+                                // End sending risk report token process
 
                                 // Change current fragment to main
                                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
