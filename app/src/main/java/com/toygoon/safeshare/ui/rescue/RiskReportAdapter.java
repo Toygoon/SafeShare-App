@@ -57,13 +57,10 @@ public class RiskReportAdapter extends ArrayAdapter<RiskReportDTO> {
 
         RiskReportDTO item = getItem(position);
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
-        int offsetMinutes = timeZone.getOffset(item.reportedAt.getTime() / (60 * 1000));
 
         SimpleDateFormat resultDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         resultDateFormat.setTimeZone(timeZone);
-
-        Date adjustedDate = new Date(item.reportedAt.getTime() - offsetMinutes * 60 * 1000);
-        String reportedAtString = resultDateFormat.format(adjustedDate),
+        String reportedAtString = resultDateFormat.format(item.reportedAt),
                 isSolvedString = context.getString(R.string.risk_label_is_solved) + " : " +
                         (item.isSolved ? context.getString(R.string.risk_label_solved) : context.getString(R.string.risk_label_unsolved)),
                 latLngString = context.getString(R.string.location) + " : (" + item.latlng.lat + ", " + item.latlng.lng + ")";
