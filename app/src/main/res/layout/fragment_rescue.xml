@@ -7,9 +7,9 @@
     tools:context=".ui.rescue.RescueFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/header_text"
@@ -17,16 +17,17 @@
             android:layout_height="70dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
+            android:gravity="center"
             android:text="@string/risk_report_title"
             android:textColor="@color/green_700"
             android:textSize="40sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
+            android:textStyle="bold" />
+Ï
         <ListView
             android:id="@+id/risk_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:divider="@null" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

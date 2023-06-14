@@ -68,4 +68,7 @@
     <string name="risk_label_level">Risk Level</string>
     <string name="risk_label_impact">Risk Impact</string>
     <string name="risk_label_user">User</string>
+    <string name="emergency_request_title">Emergency Request</string>
+    <string name="emergency_request_content">Initiating an emergency request. This action is irreversible, and you may be legally liable for false reporting.\n\nPlease note that emergency requests should only be used in extremely urgent situations. Are you sure you want to request rescue from your current location?</string>
+    <string name="emergency_request_content_again">Let me ask you again.</string>
 </resources>
