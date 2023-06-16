@@ -176,8 +176,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         AlertDialog.Builder realBuilder = new AlertDialog.Builder(requireActivity());
+                        String msg = getString(R.string.emergency_request_content_again) + "\n\n" + getString(R.string.emergency_request_content);
                         realBuilder.setTitle(R.string.emergency_request_title)
-                                .setMessage(R.string.emergency_request_content_again)
+                                .setMessage(msg)
                                 .setIcon(R.drawable.ic_menu_risk)
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
@@ -191,6 +192,9 @@ public class HomeFragment extends Fragment {
 
                                     }
                                 });
+
+                        realBuilder.create();
+                        realBuilder.show();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -204,6 +208,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void emergencyRequest() {
+        SharedPreferences sosStatus = requireActivity().getSharedPreferences("sos", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sosStatus.edit();
+
+        editor.putBoolean("sos", true);
+        editor.apply();
+
         Location userLocation = moveToCurrentLocation();
 
         // Sending risk report process
@@ -227,7 +237,6 @@ public class HomeFragment extends Fragment {
             throw new RuntimeException(e);
         }
         Log.d("RiskFragment", "Risk reported");
-
         // End sending risk report token process
     }
 }
